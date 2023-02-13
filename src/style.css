@@ -2,6 +2,26 @@
 display: flex;
 justify-content: center;
 align-items: center;
-height: 30vh;
 
+
+}
+
+.page{
+display: flex;
+flex-direction: column; 
+justify-content: center;
+align-items: center;
+
+}
+
+.page-subtitle{
+    font-size: 1.5em;
+    font-weight: lighter;
+    text-align: center;
+    margin-bottom: 20px;
+}
+.input-field{
+    width: 600px;
+    padding: 50px;
+    
 }
