@@ -8,6 +8,7 @@ import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import FormControl from "@mui/material/FormControl";
 import ListComponent from "./components/todo-listComponent";
+import { v4 as uuidv4 } from 'uuid';
 function App() {
   const [todo, setTodo] = useState("");
   const [todoCategory, setTodoCategory] = useState("");
@@ -17,20 +18,29 @@ function App() {
     console.log(todoCategory)
   }
   const handleChange = (event) => {
-   
+    setTodo(event.target.value);
     console.log(todo)
   };
 
 const addTodo = () => {
   const newTodo = {
-    id: todoList.length + 1,
+    id: uuidv4(),
     title: todo,
     todoCategory: todoCategory,
     completed: false,
     isEditable: true,
   };
   setTodoList([...todoList, newTodo]);
+  setTodo("");
+  setTodoCategory("");
   console.log(todoList)
+}
+
+const delTodo=(id)=>{
+ console.log(id)
+  const newTodoList=todoList.filter((todo)=>todo.id!==id)
+  setTodoList(newTodoList)
+  
 }
   
  
@@ -49,11 +59,9 @@ const addTodo = () => {
         <TextField
           className="input-field"
           label="Todo"
+          value={todo}
           variant="outlined"
-          onChange={(e) => {
-            setTodo(e.target.value);
-            
-          }}
+          onChange={handleChange}
         />
       </Box>
       <div>
@@ -73,7 +81,7 @@ const addTodo = () => {
             label="Category"
             onChange={(e) => {
               handleCategoryChange(e)
-              setTodoCategory(e.target.value);
+              
               console.log(todoCategory)
             }}
           >
@@ -93,6 +101,7 @@ const addTodo = () => {
             todoCategory={todo.todoCategory}
             completed={todo.completed}
             isEditable={todo.isEditable}
+            delTodo={delTodo}
           />
         );
       })}

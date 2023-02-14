@@ -10,7 +10,9 @@ export default function listComponent(todo) {
               key={todo.id}
               secondaryAction={
                 <div>
-                  <IconButton edge="end" aria-label="delete">
+                  <IconButton edge="end" aria-label="delete" onClick={()=>{
+                    todo.delTodo(todo.id)
+                  }}>
                     <DeleteIcon color="error" />
                   </IconButton>
                   <IconButton edge="end">
