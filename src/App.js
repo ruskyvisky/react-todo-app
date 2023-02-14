@@ -11,7 +11,7 @@ import ListComponent from "./components/todo-listComponent";
 function App() {
   const [todo, setTodo] = useState("");
   const [todoCategory, setTodoCategory] = useState("");
- 
+  const [todoList, setTodoList] = useState([]);
   const handleCategoryChange = (event) => {
     setTodoCategory(event.target.value);
     console.log(todoCategory)
@@ -20,29 +20,20 @@ function App() {
    
     console.log(todo)
   };
-  const dummyData = [
-    {
-      id: 1,
-      title: "Todo 1",
-      todoCategory: "House",
-      completed: false,
-      isEditable: true,
-    },
-    {
-      id: 2,
-      title: "write a code",
-      todoCategory: "Work",
-      completed: true,
-      isEditable: true,
-    },
-    {
-      id: 3,
-      title: "Todo 3",
-      todoCategory: "House",
-      completed: false,
-      isEditable: true,
-    },
-  ];
+
+const addTodo = () => {
+  const newTodo = {
+    id: todoList.length + 1,
+    title: todo,
+    todoCategory: todoCategory,
+    completed: false,
+    isEditable: true,
+  };
+  setTodoList([...todoList, newTodo]);
+  console.log(todoList)
+}
+  
+ 
   return (
     <div className="page">
       <h1 className="page-title">Todo List App </h1>
@@ -66,7 +57,7 @@ function App() {
         />
       </Box>
       <div>
-      <Button variant="contained" className="add-button" onClick={handleChange}>
+      <Button variant="contained" className="add-button" onClick={addTodo}>
         Add Todo
       </Button>
       </div>
@@ -86,14 +77,14 @@ function App() {
               console.log(todoCategory)
             }}
           >
-            <MenuItem value={10}>House</MenuItem>
-            <MenuItem value={20}>Work</MenuItem>
-            <MenuItem value={30}>Other</MenuItem>
+            <MenuItem value={"House"}>House</MenuItem>
+            <MenuItem value={"Work"}>Work</MenuItem>
+            <MenuItem value={"Other"}>Other</MenuItem>
           </Select>
         </FormControl>
       </Box>
 
-      {dummyData.map((todo) => {
+      {todoList.map((todo) => {
         return (
           <ListComponent
             key={todo.id}
