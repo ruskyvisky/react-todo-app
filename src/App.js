@@ -8,75 +8,66 @@ import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import FormControl from "@mui/material/FormControl";
 import ListComponent from "./components/todo-listComponent";
-import { v4 as uuidv4 } from 'uuid';
+import { v4 as uuidv4 } from "uuid";
 function App() {
   const [todo, setTodo] = useState("");
   const [todoCategory, setTodoCategory] = useState("");
   const [todoList, setTodoList] = useState([]);
-  const [edit, setEdit] = useState("");
+
   const handleCategoryChange = (event) => {
     setTodoCategory(event.target.value);
-    console.log(todoCategory)
-  }
+  };
   const handleChange = (event) => {
     setTodo(event.target.value);
-    console.log(todo)
   };
 
-const addTodo = () => {
-  const newTodo = {
-    id: uuidv4(),
-    title: todo,
-    todoCategory: todoCategory,
-    completed: false,
-    isEditable: true,
+  const addTodoItem = () => {
+    const newTodo = {
+      id: uuidv4(),
+      title: todo,
+      todoCategory: todoCategory,
+      completed: false,
+      isEditable: true,
+    };
+    setTodoList([...todoList, newTodo]);
+    setTodo("");
+    setTodoCategory("");
   };
-  setTodoList([...todoList, newTodo]);
-  setTodo("");
-  setTodoCategory("");
-  console.log(todoList)
-}
 
-const delTodo=(id)=>{
- console.log(id)
-  const newTodoList=todoList.filter((todo)=>todo.id!==id)
-  setTodoList(newTodoList)
-  
-}
+  const deleteTodoItem = (id) => {
+    const newTodoList = todoList.filter((todo) => todo.id !== id);
+    setTodoList(newTodoList);
+  };
 
-const completeTodo=(id)=>{
-  const newTodoList=todoList.map((todo)=>{
-    if(todo.id===id){
-      todo.completed=!todo.completed
-    }
-    return todo
-  })
-  setTodoList(newTodoList)
-}
-const editTodo =(id) =>{
-  const newTodoList=todoList.map((todo)=>{
-    if(todo.id===id){
-      todo.isEditable=!todo.isEditable
-    }
-    return todo
-  })
-  setTodoList(newTodoList)
+  const completeTodoItem = (id) => {
+    const newTodoList = todoList.map((todo) => {
+      if (todo.id === id) {
+        todo.completed = !todo.completed;
+      }
+      return todo;
+    });
+    setTodoList(newTodoList);
+  };
+  const editTodoItem = (id) => {
+    const newTodoList = todoList.map((todo) => {
+      if (todo.id === id) {
+        todo.isEditable = !todo.isEditable;
+      }
+      return todo;
+    });
+    setTodoList(newTodoList);
+  };
+  const saveTodoItem = (id, newTitle) => {
+    const updatedTodos = todoList.map((t) => {
+      if (t.id === id) {
+        return { ...t, title: newTitle, isEditable: !t.isEditable };
+      } else {
+        return t;
+      }
+    });
+    setTodoList(updatedTodos);
+  };
 
-}
-const saveTodo = (id, newTitle) => {
-  const updatedTodos = todoList.map((t) => {
-    if (t.id === id) {
-      return { ...t, title: newTitle, isEditable: !t.isEditable };
-    } else {
-      return t;
-    }
-  });
-  setTodoList(updatedTodos);
-};
-
-
-
- 
   return (
     <div className="page">
       <h1 className="page-title">Todo List App </h1>
@@ -98,24 +89,27 @@ const saveTodo = (id, newTitle) => {
         />
       </Box>
       <div>
-      <Button variant="contained" className="add-button" onClick={addTodo}>
-        Add Todo
-      </Button>
+        <Button
+          variant="contained"
+          className="add-button"
+          onClick={addTodoItem}
+        >
+          Add Todo
+        </Button>
       </div>
-     
+
       <Box sx={{ minWidth: 120, m: 3 }}>
-        <FormControl fullWidth required>
+        <FormControl fullWidth>
           <InputLabel id="demo-simple-select-label">Category</InputLabel>
           <Select
-            required
+          
             labelId="demo-simple-select-label"
             id="demo-simple-select"
             value={todoCategory}
             label="Category"
             onChange={(e) => {
-              handleCategoryChange(e)
+              handleCategoryChange(e);
               
-              console.log(todoCategory)
             }}
           >
             <MenuItem value={"House"}>House</MenuItem>
@@ -134,11 +128,10 @@ const saveTodo = (id, newTitle) => {
             todoCategory={todo.todoCategory}
             completed={todo.completed}
             isEditable={todo.isEditable}
-            delTodo={delTodo}
-            completeTodo={completeTodo}
-            editTodo={editTodo}
-            saveTodo={saveTodo}
-            setEdit={setEdit}
+            delTodo={deleteTodoItem}
+            completeTodo={completeTodoItem}
+            editTodo={editTodoItem}
+            saveTodo={saveTodoItem}
           />
         );
       })}

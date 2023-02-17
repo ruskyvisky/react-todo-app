@@ -4,11 +4,11 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import Edit from "@mui/icons-material/Edit";
 import { useState } from "react";
 import Checkbox from "@mui/material/Checkbox";
-
+import TextField from "@mui/material/TextField";
 import Save from "@mui/icons-material/Save";
-export default function ListComponent(todo) {
 
-const [edit,setEdit]=useState(todo.title)
+export default function ListComponent(todo) {
+  const [edit, setEdit] = useState(todo.title);
   return (
     <List sx={{ width: "100%", maxWidth: 360 }}>
       <ListItem
@@ -24,20 +24,28 @@ const [edit,setEdit]=useState(todo.title)
             >
               <DeleteIcon color="error" />
             </IconButton>
-            <IconButton edge="end">
-              {todo.isEditable ? (
-                <Edit color="primary" onClick={(e)=>{
-                  todo.editTodo(todo.id)
-                  
-                }}/>
-              ) : (
-                <Save color="success" onClick={()=>{
-                  
+            {todo.isEditable ? (
+              <IconButton
+                edge="end"
+                onClick={() => {
+                  todo.editTodo(todo.id);
+                }}
+              >
+                <Edit
+                  color="primary"
+               
+                />
+              </IconButton>
+            ) : (
+              <IconButton
+                edge="end"
+                onClick={() => {
                   todo.saveTodo(todo.id, edit);
-                  
-                }} />
-              )}
-            </IconButton>
+                }}
+              >
+                <Save color="success" />
+              </IconButton>
+            )}
           </div>
         }
       >
@@ -55,14 +63,17 @@ const [edit,setEdit]=useState(todo.title)
             primary={<del>{todo.title}</del>}
             secondary={todo.todoCategory}
           />
+        ) : todo.isEditable ? (
+          <ListItemText primary={todo.title} secondary={todo.todoCategory} />
         ) : (
-          todo.isEditable ? (<ListItemText primary={todo.title} secondary={todo.todoCategory} />):
-          <input type="text" value={edit} onChange={(e)=>{
-            setEdit(e.target.value)
-            
-          }}/>
-
-          
+          <TextField
+            id="outlined-basic"
+            variant="outlined"
+            value={edit}
+            onChange={(e) => {
+              setEdit(e.target.value);
+            }}
+          />
         )}
       </ListItem>
     </List>
