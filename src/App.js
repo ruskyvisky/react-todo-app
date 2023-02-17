@@ -13,6 +13,7 @@ function App() {
   const [todo, setTodo] = useState("");
   const [todoCategory, setTodoCategory] = useState("");
   const [todoList, setTodoList] = useState([]);
+  const [edit, setEdit] = useState("");
   const handleCategoryChange = (event) => {
     setTodoCategory(event.target.value);
     console.log(todoCategory)
@@ -42,7 +43,39 @@ const delTodo=(id)=>{
   setTodoList(newTodoList)
   
 }
-  
+
+const completeTodo=(id)=>{
+  const newTodoList=todoList.map((todo)=>{
+    if(todo.id===id){
+      todo.completed=!todo.completed
+    }
+    return todo
+  })
+  setTodoList(newTodoList)
+}
+const editTodo =(id) =>{
+  const newTodoList=todoList.map((todo)=>{
+    if(todo.id===id){
+      todo.isEditable=!todo.isEditable
+    }
+    return todo
+  })
+  setTodoList(newTodoList)
+
+}
+const saveTodo = (id, newTitle) => {
+  const updatedTodos = todoList.map((t) => {
+    if (t.id === id) {
+      return { ...t, title: newTitle, isEditable: !t.isEditable };
+    } else {
+      return t;
+    }
+  });
+  setTodoList(updatedTodos);
+};
+
+
+
  
   return (
     <div className="page">
@@ -102,6 +135,10 @@ const delTodo=(id)=>{
             completed={todo.completed}
             isEditable={todo.isEditable}
             delTodo={delTodo}
+            completeTodo={completeTodo}
+            editTodo={editTodo}
+            saveTodo={saveTodo}
+            setEdit={setEdit}
           />
         );
       })}
