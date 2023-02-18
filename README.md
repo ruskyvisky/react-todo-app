@@ -38,7 +38,7 @@ Start the server
 
 ## Screenshots
 
-[Imgur](https://imgur.com/vZxQfuf)
+![Imgur](https://imgur.com/vZxQfuf)
 
 
 ## Author
