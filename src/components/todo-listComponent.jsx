@@ -31,10 +31,7 @@ export default function ListComponent(todo) {
                   todo.editTodo(todo.id);
                 }}
               >
-                <Edit
-                  color="primary"
-               
-                />
+                <Edit color="primary" />
               </IconButton>
             ) : (
               <IconButton

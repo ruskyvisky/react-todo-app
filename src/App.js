@@ -102,14 +102,12 @@ function App() {
         <FormControl fullWidth>
           <InputLabel id="demo-simple-select-label">Category</InputLabel>
           <Select
-          
             labelId="demo-simple-select-label"
             id="demo-simple-select"
             value={todoCategory}
             label="Category"
             onChange={(e) => {
               handleCategoryChange(e);
-              
             }}
           >
             <MenuItem value={"House"}>House</MenuItem>
