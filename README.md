@@ -38,7 +38,7 @@ Start the server
 
 ## Screenshots
 
-![Imgur](https://imgur.com/vZxQfuf)
+![todoapp](https://user-images.githubusercontent.com/46764372/219871404-1914350b-09b1-4a8a-a39e-7f463652eb8e.png)
 
 
 ## Author
